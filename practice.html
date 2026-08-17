@@ -992,7 +992,22 @@
           gunsAnimations[i] = gun.animations;
         });
       }
-      let manager=new THREE.LoadingManager;manager.onProgress=function(e,a,n){loadingProgress=(a/n*100).toFixed(0)};let Loaders={Map:new THREE.GLTFLoader(manager).load(new URLSearchParams(location.search).get("blob")?decodeURIComponent(currentMap.toLowerCase()):"models/maps/"+currentMap+"/scene.gltf", (map) => {
+      let manager = new THREE.LoadingManager;
+
+manager.onError = function(url) {
+  alert("Yüklenemeyen dosya: " + url);
+};
+
+manager.onProgress = function(e, a, n) {
+  loadingProgress = (a / n * 100).toFixed(0);
+};
+
+let Loaders = {
+  Map: new THREE.GLTFLoader(manager).load(
+    new URLSearchParams(location.search).get("blob")
+      ? decodeURIComponent(currentMap.toLowerCase())
+      : "models/maps/" + currentMap + "/scene.gltf",
+    (map) => {
         if (currentMap == "CARGO") {
   const cargoLight = map.scene.getObjectByProperty("type", "DirectionalLight");
   if (cargoLight) {
