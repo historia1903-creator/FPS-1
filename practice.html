@@ -993,7 +993,12 @@
         });
       }
       let manager=new THREE.LoadingManager;manager.onProgress=function(e,a,n){loadingProgress=(a/n*100).toFixed(0)};let Loaders={Map:new THREE.GLTFLoader(manager).load(new URLSearchParams(location.search).get("blob")?decodeURIComponent(currentMap.toLowerCase()):"models/maps/"+currentMap+"/scene.gltf", (map) => {
-        currentMap=="CARGO"&&(map.scene.getObjectByProperty("type","DirectionalLight").intensity=.4);
+        if (currentMap == "CARGO") {
+  const cargoLight = map.scene.getObjectByProperty("type", "DirectionalLight");
+  if (cargoLight) {
+    cargoLight.intensity = 0.4;
+  }
+}
         window.map = map.scene;
         scene.add(map.scene);
         map.scene.scale.set(1.65, 1.65, 1.65);
