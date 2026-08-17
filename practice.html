@@ -1800,6 +1800,29 @@ let Loaders = {
           isPaused? unpause() : pause();
         }
       });
+      document.addEventListener("mousedown", function(event) {
+  if (event.button !== 0) return;
+
+  if (currentWeapon == "rifle") {
+    fire(3, 10);
+  } else if (currentWeapon == "pistol") {
+    fire(1, 10);
+  } else if (currentWeapon == "sniper") {
+    fire(1, 50);
+  } else if (currentWeapon == "assault" || currentWeapon == "uzi") {
+    fullAutoFiring = true;
+  } else if (currentWeapon == "shotgun") {
+    fire(1, 36);
+  } else if (currentWeapon == "rocket") {
+    fire(1, 100);
+  }
+});
+
+document.addEventListener("mouseup", function(event) {
+  if (event.button === 0) {
+    fullAutoFiring = false;
+  }
+});
       document.addEventListener("keyup", (e) => {
         if (e.key == "ArrowUp") {
           isWalkingForward = false;
