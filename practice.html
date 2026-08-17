@@ -998,8 +998,9 @@ manager.onError = function(url) {
   alert("Yüklenemeyen dosya: " + url);
 };
 
-manager.onProgress = function(e, a, n) {
-  loadingProgress = (a / n * 100).toFixed(0);
+manager.onProgress = function(url, loaded, total) {
+  loadingProgress = (loaded / total * 100).toFixed(0);
+  console.log("Yükleniyor:", url, loaded + "/" + total);
 };
 
 let Loaders = {
