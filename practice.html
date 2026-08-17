@@ -1325,7 +1325,23 @@ let Loaders = {
         }
       });
       didStart = false;
-      function toggleFullscreen(e){var n=document.body;e instanceof HTMLElement&&(n=e);var c=document.webkitIsFullScreen||document.mozFullScreen||!1;n.requestFullScreen=n.requestFullScreen||n.webkitRequestFullScreen||n.mozRequestFullScreen||function(){return!1},document.cancelFullScreen=document.cancelFullScreen||document.webkitCancelFullScreen||document.mozCancelFullScreen||function(){return!1},c?document.cancelFullScreen():n.requestFullScreen()}
+      function toggleFullscreen() {
+  const elem = document.documentElement;
+
+  if (!document.fullscreenElement) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen().catch(() => {});
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
       function start() {
         controls.isLocked = false;
         let canvas = document.querySelector("canvas[data-engine]");
