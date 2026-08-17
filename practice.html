@@ -1394,19 +1394,20 @@ let Loaders = {
         });
         },3000);
         setTimeout(()=>document.querySelector("#slayer").play(),8000);
-        setTimeout(()=>{
-          swal({
-            title: "Get ready",
-            button: false,
-            text: "Waiting for other players",
-            closeOnEsc: false,
-            closeOnEnterKey: false,
-            closeOnSpaceKey: false,
-            closeOnClickOutside: false
-          });
-          gametime.run("syncCountdown", [gametime.user.position]);
-          document.querySelector("#countdown").play();
+       setTimeout(() => {
+  swal.close();
+
+  document.body.style.cursor = "none";
+
+  const canvas = document.querySelector("canvas");
+  if (canvas && canvas.requestPointerLock) {
+    canvas.requestPointerLock();
+  }
+}, 1000);
+          //gametime.run("syncCountdown", [gametime.user.position]);
+          //document.querySelector("#countdown").play();
           let sync = setInterval(() => {
+  countdown = true;
             if (countdown) {
               setTimeout(() => {
                 swal({
@@ -1441,7 +1442,7 @@ let Loaders = {
               clearInterval(sync);
             }
           });
-        },10000);
+        },1000);
       }
       setInterval(() => {
         if (!didStart) {
